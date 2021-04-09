@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "OrchestratorService";
+
+package test;
+
+import "service.proto";
+
+service Orchestrator
+{
+  rpc RegisterClient(G_RegisterClientRequest) returns (stream G_Response) { }
+  rpc EnqueueRequest(G_OrchestrationRequest) returns (G_Response) { }
+}
+
+message G_OrchestrationRequest{
+  string originId = 1;
+  oneof RequestType{
+    G_RequestType1 requestType1 = 2;
+    G_RequestType2 requestType2 = 3;
+    G_Response response = 4;
+  }
+}
+
+message G_RegisterClientRequest{
+  string clientId = 1;
+}
+
+message G_Response{
+  bool wasSuccessful = 1;
+  string response = 2;
+}
+

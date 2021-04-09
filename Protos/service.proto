@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RequestHandlerService";
+
+package test;
+
+service Handler
+{
+  rpc AddItem1(G_RequestType1) returns (G_RequestResponse) { }
+  rpc AddItem2(G_RequestType2) returns (G_RequestResponse) { }
+}
+
+message G_RequestType1{
+  string originId = 1;
+  string request = 2;
+}
+
+message G_RequestType2{
+  string originId = 1;
+  string request = 2;
+}
+
+message G_RequestResponse{
+  string response = 1;
+}
