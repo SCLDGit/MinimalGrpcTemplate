@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using OrchestratorService;
 using RequestHandlerService;
+using PlatformService;
+using ScanWinService;
 
 namespace OrchestrationServer.Services
 {
@@ -13,13 +15,18 @@ namespace OrchestrationServer.Services
         public OrchestratorService()
         {
             HandlerClient = new Handler.HandlerClient(new Channel("localhost:30053", ChannelCredentials.Insecure));
-            
+            PlatformHandler = new Platform.PlatformClient(new Channel("localhost:30053", ChannelCredentials.Insecure));
+            ScanWinHandler = new ScanWin.ScanWinClient(new Channel("localhost:30054", ChannelCredentials.Insecure));
+
             Task.Factory.StartNew(MonitorQueue, TaskCreationOptions.LongRunning);
         }
 
         private Dictionary<string, IServerStreamWriter<G_Response>> RegisteredClients { get; } = new();
         private Queue<G_OrchestrationRequest> RequestQueue { get; } = new();
         private Handler.HandlerClient HandlerClient { get; }
+        private Platform.PlatformClient PlatformHandler { get; }
+        private ScanWin.ScanWinClient ScanWinHandler { get; }
+        
 
         public override Task<G_Response> EnqueueRequest(G_OrchestrationRequest request, ServerCallContext context)
         {
@@ -78,6 +85,34 @@ namespace OrchestrationServer.Services
             switch (p_request.RequestTypeCase)
             {
                 case G_OrchestrationRequest.RequestTypeOneofCase.None:
+                    break;
+                case G_OrchestrationRequest.RequestTypeOneofCase.ScanRequest:
+                    try
+                    {
+                        Console.WriteLine("Sending platform request...");
+                        var platform = PlatformHandler.GetPlatform(p_request.ScanRequest);
+                        Console.WriteLine($"Platform: {platform}");
+                        switch (platform.Response)
+                        {
+                            case "WIN":
+                                Console.WriteLine("Sending scanning windows request...");
+                                G_ScanWinRequest scanwin = new G_ScanWinRequest()
+                                {
+                                    Scanrequest = p_request.ScanRequest
+                                };
+                                var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
+                                Console.WriteLine(scanningWin);
+                                break;
+                            case "LINUX":
+                                break;
+                        }
+                    }
+                    catch (RpcException exception)
+                    {
+                        Console.WriteLine(exception.InnerException);
+                        throw;
+                    }
+
                     break;
                 case G_OrchestrationRequest.RequestTypeOneofCase.RequestType1:
                     try

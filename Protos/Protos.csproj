@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Platform.proto" />
+      <None Remove="scanwin.proto" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Google.Protobuf" Version="3.15.7" />
@@ -20,6 +25,16 @@
         <ProtoCompile>True</ProtoCompile>
         <CompileOutputs>True</CompileOutputs>
         <OutputDir>obj\Debug\net5.0\</OutputDir>
+        <Generator>MSBuild:Compile</Generator>
+      </Protobuf>
+      <Protobuf Include="scanwin.proto" Access="Public" GrpcServices="None" ProtoCompile="True">
+        <OutputDir>obj\Debug\net5.0\</OutputDir>
+        <CompileOutputs>True</CompileOutputs>
+        <Generator>MSBuild:Compile</Generator>
+      </Protobuf>
+      <Protobuf Include="Platform.proto" Access="Public" GrpcServices="None" ProtoCompile="True">
+        <OutputDir>obj\Debug\net5.0\</OutputDir>
+        <CompileOutputs>True</CompileOutputs>
         <Generator>MSBuild:Compile</Generator>
       </Protobuf>
       <Protobuf Include="service.proto">

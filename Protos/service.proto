@@ -20,6 +20,7 @@ message G_RequestType2{
   string request = 2;
 }
 
+
 message G_RequestResponse{
   string response = 1;
 }

@@ -5,6 +5,7 @@ option csharp_namespace = "OrchestratorService";
 package test;
 
 import "service.proto";
+import "Platform.proto";
 
 service Orchestrator
 {
@@ -17,7 +18,8 @@ message G_OrchestrationRequest{
   oneof RequestType{
     G_RequestType1 requestType1 = 2;
     G_RequestType2 requestType2 = 3;
-    G_Response response = 4;
+    G_ScanRequest scanRequest = 4;
+    G_Response response = 5;
   }
 }
 

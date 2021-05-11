@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.17.0-rc1" />
+    <PackageReference Include="Grpc.Core" Version="2.37.1" />
+    <PackageReference Include="Grpc.Tools" Version="2.37.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="../Protos/Platform.proto" GrpcServices="Server" ProtoRoot="../Protos/">
+      <Link>Protos/Platform.proto</Link>
+    </Protobuf>
+    <Protobuf Include="../Protos/orchestrator.proto" GrpcServices="Client" ProtoRoot="../Protos/">
+      <Link>Protos/orchestrator.proto</Link>
+    </Protobuf>
+    <Protobuf Include="../Protos/service.proto" GrpcServices="Server" ProtoRoot="../Protos/">
+      <Link>Protos/service.proto</Link>
+    </Protobuf>
+    <Protobuf Include="../Protos/scanwin.proto" GrpcServices="Server" ProtoRoot="../Protos/">
+      <Link>Protos/scanwin.proto</Link>
+    </Protobuf>
+
+  </ItemGroup>
+
+</Project>

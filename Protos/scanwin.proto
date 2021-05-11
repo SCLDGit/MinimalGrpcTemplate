@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ScanWinService";
+
+package test;
+import "Platform.proto";
+
+service ScanWin
+{
+  rpc ScanWinProcess(G_ScanWinRequest) returns (G_ScanWinResponse) { }
+}
+
+
+message G_ScanWinRequest{
+	G_ScanRequest scanrequest = 1;
+} 
+
+message G_ScanWinResponse{
+  string response = 1;
+}
