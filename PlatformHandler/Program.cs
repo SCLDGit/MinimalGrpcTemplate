@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using DevExpress.Xpo;
 using Grpc.Core;
 using PlatformService;
+using SteelCloud.Moonshot.Db;
 
 namespace PlatformHandler
 {
@@ -8,6 +11,17 @@ namespace PlatformHandler
     {
         static void Main(string[] args)
         {
+            var dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "fnddata", "debug");
+
+            //Directory.CreateDirectory(dbLocation);
+
+            var dbConnectionHelper = new SteelCloud.Database.SqliteConnectionHelper(dbLocation, "fnddb.db");
+
+            dbConnectionHelper.EstablishDatabaseConnection();
+            var uow = new UnitOfWork();
+
+
             Console.WriteLine("Starting platform handler server...");
 
             const int port = 30053;

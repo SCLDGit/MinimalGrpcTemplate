@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "PlatformService";
+
+package test;
+
+
+service Platform
+{
+  rpc GetPlatform(G_ScanRequest) returns (G_PlatformRequestResponse) { }
+}
+
+
+message G_ScanRequest{
+	string originId = 1;
+	string endPointAddress = 2;
+	string endPointPlatform = 3;
+	string policyItemName = 4;
+	string policyItenVersion = 5;
+} 
+
+message G_PlatformRequestResponse{
+  string response = 1;
+}

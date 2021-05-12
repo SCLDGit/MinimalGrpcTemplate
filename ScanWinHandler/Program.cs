@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using DevExpress.Xpo;
 using Grpc.Core;
 using ScanWinService;
 
@@ -8,6 +10,15 @@ namespace ScanWinHandler
     {
         static void Main(string[] args)
         {
+            var dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "fnddata", "debug");
+
+            //Directory.CreateDirectory(dbLocation);
+
+            var dbConnectionHelper = new SteelCloud.Database.SqliteConnectionHelper(dbLocation, "fnddb.db");
+
+            dbConnectionHelper.EstablishDatabaseConnection();
+
             Console.WriteLine("Starting win scanner handler server...");
             const int port = 30054;
 
