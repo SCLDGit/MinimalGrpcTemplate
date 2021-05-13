@@ -6,16 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.16.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.17.0" />
     <PackageReference Include="Grpc.Core" Version="2.37.1" />
     <PackageReference Include="Grpc.Tools" Version="2.37.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SteelCloud.CommonEnumerations" Version="1.0.4" />
-    <PackageReference Include="SteelCloud.Database" Version="1.1.0" />
-    <PackageReference Include="SteelCloud.Moonshot.Db" Version="1.3.11-alpha" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +24,13 @@
     <Protobuf Include="../Protos/service.proto" GrpcServices="Server" ProtoRoot="../Protos/">
       <Link>Protos/service.proto</Link>
     </Protobuf>
-    <Protobuf Include="../Protos/scanwin.proto" GrpcServices="Client" ProtoRoot="../Protos/">
+    <Protobuf Include="../Protos/scanwin.proto" GrpcServices="Server" ProtoRoot="../Protos/">
       <Link>Protos/scanwin.proto</Link>
     </Protobuf>
-    
+    <Protobuf Include="../Protos/registryentry.proto" GrpcServices="Server" ProtoRoot="../Protos/">
+      <Link>Protos/registryentry.proto</Link>
+    </Protobuf>
+
   </ItemGroup>
 
 </Project>

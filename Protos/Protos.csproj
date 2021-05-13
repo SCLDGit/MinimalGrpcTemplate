@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <None Remove="Platform.proto" />
+      <None Remove="registryentry.proto" />
       <None Remove="scanwin.proto" />
     </ItemGroup>
 
@@ -25,6 +26,11 @@
         <ProtoCompile>True</ProtoCompile>
         <CompileOutputs>True</CompileOutputs>
         <OutputDir>obj\Debug\net5.0\</OutputDir>
+        <Generator>MSBuild:Compile</Generator>
+      </Protobuf>
+      <Protobuf Include="registryentry.proto" Access="Public" GrpcServices="None" ProtoCompile="True">
+        <OutputDir>obj\Debug\net5.0\</OutputDir>
+        <CompileOutputs>True</CompileOutputs>
         <Generator>MSBuild:Compile</Generator>
       </Protobuf>
       <Protobuf Include="scanwin.proto" Access="Public" GrpcServices="None" ProtoCompile="True">

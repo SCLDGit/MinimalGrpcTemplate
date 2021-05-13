@@ -24,7 +24,7 @@ namespace PlatformHandler
 
             Console.WriteLine("Starting platform handler server...");
 
-            const int port = 30053;
+            const int port = 30054;
 
             var server = new Server()
             {

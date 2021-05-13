@@ -20,7 +20,7 @@ namespace ScanWinHandler
             dbConnectionHelper.EstablishDatabaseConnection();
 
             Console.WriteLine("Starting win scanner handler server...");
-            const int port = 30054;
+            const int port = 30055;
 
             var server = new Server()
             {

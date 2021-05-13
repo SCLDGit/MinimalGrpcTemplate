@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "RegistryEntryService";
+
+package test;
+
+
+service RegistryEntry
+{
+  rpc ScanRegistryEntry(RegistryEntryRequest) returns (RegistryEntryResponse) { }
+}
+
+
+message RegistryEntryRequest{
+	string BaselineComplianceValue = 1;
+	string CustomComplianceValue = 2;
+	string UseCustomComplianceValue = 3;
+	string ShouldBeRemoved = 4;
+	string registryKeyRoot = 5;
+	string RegistrySubKey = 6;
+	string RegistryValueName = 7;
+	string RegistryValueKind = 8;
+} 
+
+message RegistryEntryResponse{
+  string response = 1;
+}

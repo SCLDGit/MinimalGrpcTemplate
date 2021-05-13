@@ -30,6 +30,9 @@
     <Protobuf Include="../Protos/scanwin.proto" GrpcServices="Server" ProtoRoot="../Protos/">
       <Link>Protos/scanwin.proto</Link>
     </Protobuf>
+    <Protobuf Include="../Protos/registryentry.proto" GrpcServices="Client" ProtoRoot="../Protos/">
+      <Link>Protos/registryentry.proto</Link>
+    </Protobuf>
 
   </ItemGroup>
 
