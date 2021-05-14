@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformHandler", "Platform
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScanWinHandler", "ScanWinHandler\ScanWinHandler.csproj", "{B4B71F70-9CD5-484B-8EBB-E4A0669D21DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryEntryHandler", "RegistryEntryHandler\RegistryEntryHandler.csproj", "{55687678-6F51-4ADD-93C9-A786CAFAC32D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryEntryHandler", "RegistryEntryHandler\RegistryEntryHandler.csproj", "{55687678-6F51-4ADD-93C9-A786CAFAC32D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseHandler", "DatabaseHandler\DatabaseHandler.csproj", "{D41C29B9-0539-4041-8A86-513C924F6641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{55687678-6F51-4ADD-93C9-A786CAFAC32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55687678-6F51-4ADD-93C9-A786CAFAC32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55687678-6F51-4ADD-93C9-A786CAFAC32D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41C29B9-0539-4041-8A86-513C924F6641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41C29B9-0539-4041-8A86-513C924F6641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41C29B9-0539-4041-8A86-513C924F6641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41C29B9-0539-4041-8A86-513C924F6641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

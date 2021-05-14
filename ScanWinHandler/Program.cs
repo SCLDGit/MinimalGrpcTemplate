@@ -10,14 +10,14 @@ namespace ScanWinHandler
     {
         static void Main(string[] args)
         {
-            var dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                "fnddata", "debug");
+            //var dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            //    "fnddata", "debug");
 
-            //Directory.CreateDirectory(dbLocation);
+            ////Directory.CreateDirectory(dbLocation);
 
-            var dbConnectionHelper = new SteelCloud.Database.SqliteConnectionHelper(dbLocation, "fnddb.db");
+            //var dbConnectionHelper = new SteelCloud.Database.SqliteConnectionHelper(dbLocation, "fnddb.db");
 
-            dbConnectionHelper.EstablishDatabaseConnection();
+            //dbConnectionHelper.EstablishDatabaseConnection();
 
             Console.WriteLine("Starting win scanner handler server...");
             const int port = 30055;

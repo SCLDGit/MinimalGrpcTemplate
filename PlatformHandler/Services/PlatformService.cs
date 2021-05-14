@@ -10,6 +10,8 @@ using PlatformService;
 using SteelCloud.CommonEnumerations;
 using SteelCloud.Moonshot.Db;
 using ScanWinService;
+using DatabaseService;
+
 
 namespace PlatformHandler.Services
 {
@@ -19,41 +21,50 @@ namespace PlatformHandler.Services
         {
             UoW = new UnitOfWork();
             ScanWinHandler = new ScanWin.ScanWinClient(new Channel("localhost:30055", ChannelCredentials.Insecure));
+            dbServiceHandler = new DbService.DbServiceClient(new Channel("localhost:30057", ChannelCredentials.Insecure));
         }
 
         public UnitOfWork UoW { get; }
         public virtual RuntimeCollection RuntimeCollection { get; set; }
         public virtual List<PolicyVersionItem> RuntimePolicyVersionItems { get; set; } = new List<PolicyVersionItem>();
         private ScanWin.ScanWinClient ScanWinHandler { get; }
+        private DbService.DbServiceClient dbServiceHandler { get; }
+        
 
         public override Task<G_PlatformRequestResponse> GetPlatform(G_ScanRequest request, ServerCallContext context)
         {
-            var endpoint = UoW.Query<Endpoint>().FirstOrDefault(p_o => p_o.Address == request.EndPointAddress);
-            RuntimeCollection = UoW.Query<RuntimeCollection>().FirstOrDefault(p_o => p_o.Parent == endpoint && p_o.PolicyCollection.Name.ToUpper() == "COLL1");
-            var runtimePolicy = RuntimeCollection.RuntimePolicies.FirstOrDefault(p_o => p_o.Policy.Name.ToUpper() == request.PolicyItemName && p_o.Policy.Version.ToUpper() == request.PolicyItenVersion);
+            //var endpoint = UoW.Query<Endpoint>().FirstOrDefault(p_o => p_o.Address == request.EndPointAddress);
+            //RuntimeCollection = UoW.Query<RuntimeCollection>().FirstOrDefault(p_o => p_o.Parent == endpoint && p_o.PolicyCollection.Name.ToUpper() == "COLL1");
+            //var runtimePolicy = RuntimeCollection.RuntimePolicies.FirstOrDefault(p_o => p_o.Policy.Name.ToUpper() == request.PolicyItemName && p_o.Policy.Version.ToUpper() == request.PolicyItenVersion);
 
-            var os = (enmSystemTargetType) runtimePolicy.Policy.Parent.SystemTargetType;
-            var result = string.Empty;
-            if (os.HasFlag(enmSystemTargetType.WINDOWS))
+            //var os = (enmSystemTargetType) runtimePolicy.Policy.Parent.SystemTargetType;
+            //var result = string.Empty;
+            //if (os.HasFlag(enmSystemTargetType.WINDOWS))
+            //{
+            //    result = "WIN";
+            //    Console.WriteLine("Sending scanning windows request...");
+            //    G_ScanWinRequest scanwin = new G_ScanWinRequest()
+            //    {
+            //        PolicyItemName = request.PolicyItemName,
+            //        PolicyItemVersion = request.PolicyItenVersion
+            //    };
+            //    var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
+            //    Console.WriteLine(scanningWin);
+            //}
+            //else if (os.HasFlag(enmSystemTargetType.LINUX))
+            //{
+            //    result = "LINUX";
+            //}
+            var dbGetPlatformRequest = new DbGetPlatformRequest()
             {
-                result = "WIN";
-                Console.WriteLine("Sending scanning windows request...");
-                G_ScanWinRequest scanwin = new G_ScanWinRequest()
-                {
-                    PolicyItemName = request.PolicyItemName,
-                    PolicyItemVersion = request.PolicyItenVersion
-                };
-                var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
-                Console.WriteLine(scanningWin);
-            }
-            else if (os.HasFlag(enmSystemTargetType.LINUX))
-            {
-                result = "LINUX";
-            }
+                PolicyItemName = request.PolicyItemName,
+                PolicyItemVersion = request.PolicyItenVersion
+            };
+            var platformResponse = dbServiceHandler.DbGetPlatform(dbGetPlatformRequest);
 
             return Task.FromResult(new G_PlatformRequestResponse()
             {
-                Response = $"{result}"
+                Response = $"{platformResponse}"
             });
         }
 

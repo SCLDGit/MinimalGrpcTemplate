@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.16.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.17.0" />
     <PackageReference Include="Grpc.Core" Version="2.37.1" />
     <PackageReference Include="Grpc.Tools" Version="2.37.1">
       <PrivateAssets>all</PrivateAssets>
@@ -19,22 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="../Protos/Platform.proto" GrpcServices="Server" ProtoRoot="../Protos/">
-      <Link>Protos/Platform.proto</Link>
-    </Protobuf>
-    <Protobuf Include="../Protos/orchestrator.proto" GrpcServices="Client" ProtoRoot="../Protos/">
-      <Link>Protos/orchestrator.proto</Link>
-    </Protobuf>
-    <Protobuf Include="../Protos/service.proto" GrpcServices="Server" ProtoRoot="../Protos/">
-      <Link>Protos/service.proto</Link>
-    </Protobuf>
-    <Protobuf Include="../Protos/scanwin.proto" GrpcServices="Client" ProtoRoot="../Protos/">
-      <Link>Protos/scanwin.proto</Link>
-    </Protobuf>
-    <Protobuf Include="../Protos/Database.proto"  ProtoRoot="../Protos/">
+
+    <Protobuf Include="../Protos/Database.proto" GrpcServices="Server" ProtoRoot="../Protos/">
       <Link>Protos/Database.proto</Link>
     </Protobuf>
-    
+
   </ItemGroup>
 
 </Project>
