@@ -29,41 +29,6 @@ namespace ScanWinHandler.Services
 
         public override Task<G_ScanWinResponse> ScanWinProcess(G_ScanWinRequest request, ServerCallContext context)
         {
-            //var policy = UoW.Query<PolicyVersionItem>().FirstOrDefault(p_o =>
-            //    p_o.Parent.Name == request.PolicyItemName && p_o.Version == request.PolicyItemVersion);
-            //var registryControlCount = 0;
-            //foreach (var control in policy.Controls)
-            //{
-            //    foreach (var controlPart in control.ControlParts)
-            //    {
-            //        switch (controlPart)
-            //        {
-            //            case RegistryEntryItem registryItem:
-            //                registryControlCount++;
-            //                Console.WriteLine("Sending registry scan request...");
-            //                var registryEntryRequest = new RegistryEntryRequest()
-            //                {
-            //                    BaselineComplianceValue = string.Empty,
-            //                    CustomComplianceValue = string.Empty,
-            //                    UseCustomComplianceValue = string.Empty,
-            //                    ShouldBeRemoved = string.Empty,
-            //                    RegistryKeyRoot = registryItem.RegistryKeyRoot,
-            //                    RegistrySubKey = registryItem.RegistrySubKey,
-            //                    RegistryValueName = registryItem.RegistryValueName,
-            //                    RegistryValueKind = registryItem.RegistryValueKind
-
-            //                };
-            //                Console.WriteLine("Sending registry scanning request...");
-            //                var scanRegistryResponse = RegistryEntryHandler.ScanRegistryEntry(registryEntryRequest);
-            //                Console.WriteLine($"{scanRegistryResponse} - {(control as StigControlItem).GroupId}");
-            //                break;
-            //            case LocalSecurityPolicyEntryItem localSecurityPolicyEntryItem:
-            //                break;
-
-            //        }
-            //    }
-            //}
-
             var dbGetRegistryEntryRequest = new DbGetRegistryEntryRequest()
             {
                 PolicyItemName = request.PolicyItemName,
@@ -71,7 +36,26 @@ namespace ScanWinHandler.Services
             };
             var dbGetRegistryEntry = dbServiceHandler.DbGetRegistryEntry(dbGetRegistryEntryRequest);
 
-            
+            foreach (var registryEntry in dbGetRegistryEntry.Children)
+            {
+                var registryEntryRequest = new RegistryEntryRequest()
+                {
+                    BaselineComplianceValue = string.Empty,
+                    CustomComplianceValue = string.Empty,
+                    UseCustomComplianceValue = string.Empty,
+                    ShouldBeRemoved = string.Empty,
+                    RegistryKeyRoot = registryEntry.RegistryKeyRoot,
+                    RegistrySubKey = registryEntry.RegistrySubKey,
+                    RegistryValueName = registryEntry.RegistryValueName,
+                    RegistryValueKind = registryEntry.RegistryValueKind
+
+                };
+                Console.WriteLine("Sending registry scanning request...");
+                var scanRegistryResponse = RegistryEntryHandler.ScanRegistryEntry(registryEntryRequest);
+                Console.WriteLine($"{scanRegistryResponse}");
+            }
+
+
             return Task.FromResult(new G_ScanWinResponse()
             {
                 Response = $"Windows scan {dbGetRegistryEntry} registry controls, finished successfully"

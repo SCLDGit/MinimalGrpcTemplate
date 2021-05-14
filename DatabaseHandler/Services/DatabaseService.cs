@@ -31,36 +31,27 @@ namespace DatabaseHandler.Services
             {
                 foreach (var controlPart in control.ControlParts)
                 {
-                    switch (controlPart)
+                    if (controlPart is not RegistryEntryItem registryItem) continue;
+                    registryControlCount++;
+                    var dbRegistryEntry = new DbRegistryEntry()
                     {
-                        case RegistryEntryItem registryItem:
-                            registryControlCount++;
-                            Console.WriteLine("Sending registry scan request...");
-                            var dbRegistryEntry = new DbRegistryEntry()
-                            {
-                                BaselineComplianceValue = string.Empty,
-                                CustomComplianceValue = string.Empty,
-                                UseCustomComplianceValue = string.Empty,
-                                ShouldBeRemoved = string.Empty,
-                                RegistryKeyRoot = registryItem.RegistryKeyRoot,
-                                RegistrySubKey = registryItem.RegistrySubKey,
-                                RegistryValueName = registryItem.RegistryValueName,
-                                RegistryValueKind = registryItem.RegistryValueKind
-                            };
-                            children.Add(dbRegistryEntry);
-
-                           
-                            //Console.WriteLine("Sending registry scanning request...");
-                            //var scanRegistryResponse = RegistryEntryHandler.ScanRegistryEntry(registryEntryRequest);
-                            //Console.WriteLine($"{scanRegistryResponse} - {(control as StigControlItem).GroupId}");
-                            break;
-                        case LocalSecurityPolicyEntryItem localSecurityPolicyEntryItem:
-                            break;
-
-                    }
+                        BaselineComplianceValue = string.Empty,
+                        CustomComplianceValue = string.Empty,
+                        UseCustomComplianceValue = string.Empty,
+                        ShouldBeRemoved = string.Empty,
+                        RegistryKeyRoot = registryItem.RegistryKeyRoot,
+                        RegistrySubKey = registryItem.RegistrySubKey,
+                        RegistryValueName = registryItem.RegistryValueName,
+                        RegistryValueKind = registryItem.RegistryValueKind
+                    };
+                    children.Add(dbRegistryEntry);
                 }
             }
-            return new DbGetRegistryEntryResponse() { Children = { children} };
+
+            return Task.FromResult(new DbGetRegistryEntryResponse()
+            {
+                Children = { children}
+            });
         }
 
         public override Task<DbGetPlatformResponse> DbGetPlatform(DbGetPlatformRequest request, ServerCallContext context)

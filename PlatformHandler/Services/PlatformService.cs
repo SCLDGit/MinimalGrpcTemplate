@@ -33,34 +33,27 @@ namespace PlatformHandler.Services
 
         public override Task<G_PlatformRequestResponse> GetPlatform(G_ScanRequest request, ServerCallContext context)
         {
-            //var endpoint = UoW.Query<Endpoint>().FirstOrDefault(p_o => p_o.Address == request.EndPointAddress);
-            //RuntimeCollection = UoW.Query<RuntimeCollection>().FirstOrDefault(p_o => p_o.Parent == endpoint && p_o.PolicyCollection.Name.ToUpper() == "COLL1");
-            //var runtimePolicy = RuntimeCollection.RuntimePolicies.FirstOrDefault(p_o => p_o.Policy.Name.ToUpper() == request.PolicyItemName && p_o.Policy.Version.ToUpper() == request.PolicyItenVersion);
-
-            //var os = (enmSystemTargetType) runtimePolicy.Policy.Parent.SystemTargetType;
-            //var result = string.Empty;
-            //if (os.HasFlag(enmSystemTargetType.WINDOWS))
-            //{
-            //    result = "WIN";
-            //    Console.WriteLine("Sending scanning windows request...");
-            //    G_ScanWinRequest scanwin = new G_ScanWinRequest()
-            //    {
-            //        PolicyItemName = request.PolicyItemName,
-            //        PolicyItemVersion = request.PolicyItenVersion
-            //    };
-            //    var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
-            //    Console.WriteLine(scanningWin);
-            //}
-            //else if (os.HasFlag(enmSystemTargetType.LINUX))
-            //{
-            //    result = "LINUX";
-            //}
             var dbGetPlatformRequest = new DbGetPlatformRequest()
             {
                 PolicyItemName = request.PolicyItemName,
                 PolicyItemVersion = request.PolicyItenVersion
             };
             var platformResponse = dbServiceHandler.DbGetPlatform(dbGetPlatformRequest);
+            switch (platformResponse.Platform.ToUpper())
+            {
+                case "WIN":
+                    Console.WriteLine("Sending scanning windows request...");
+                    G_ScanWinRequest scanwin = new G_ScanWinRequest()
+                    {
+                        PolicyItemName = request.PolicyItemName,
+                        PolicyItemVersion = request.PolicyItenVersion
+                    };
+                    var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
+                    Console.WriteLine(scanningWin);
+                    break;
+                case "LINUX":
+                    break;
+            }
 
             return Task.FromResult(new G_PlatformRequestResponse()
             {
