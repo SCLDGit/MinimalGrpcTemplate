@@ -11,13 +11,21 @@ namespace RegistryEntryHandler.Services
 {
     public class RegistryEntryService : RegistryEntry.RegistryEntryBase
     {
-        public override Task<RegistryEntryResponse> ScanRegistryEntry(RegistryEntryRequest request, ServerCallContext context)
+        public override async Task ScanRegistryEntry(RegistryEntryRequest request, IServerStreamWriter<RegistryEntryResponse> responseStream, ServerCallContext context)
         {
-            return Task.FromResult(new RegistryEntryResponse()
-            {
-                Response = $"Scanning registry '{request.RegistryValueName}' finished successfully"
-            });
+            //Console.WriteLine($"'ScanRegistryEntry' was invoked with: {request}");
 
+            foreach (var registryEntry in request.Children)
+            {
+                Console.WriteLine($"Scanning {registryEntry.RegistryValueName}");
+                var registryEntryResponse = new RegistryEntryResponse()
+                {
+                    Response = $"{registryEntry.RegistryValueName} successfully scanned."
+                };
+
+                await responseStream.WriteAsync(registryEntryResponse);
+                //System.Threading.Thread.Sleep(200);
+            }
         }
     }
 }

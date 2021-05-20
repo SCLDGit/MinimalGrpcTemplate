@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using DevExpress.Data.Extensions;
 using Grpc.Core;
@@ -28,12 +30,28 @@ namespace Requester
             Task.Run(async () => MonitorMessages(responseStream));
 
             ConsoleKey key;
+            var servicesToKill = new List<string>();
+            servicesToKill.Add("RegistryEntryHandler");
+            servicesToKill.Add("ScanWinHandler");
+            servicesToKill.Add("PlatformHandler");
+            servicesToKill.Add("DatabaseHandler");
+            servicesToKill.Add("OrchestrationServer");
 
             Console.WriteLine("Press a key to send a server request. Press 'QUIT' to quit...");
             string command;
             do
             {
                 command = Console.ReadLine();
+                if (command.ToUpper() == "QUIT" || command.ToUpper() == "EXIT")
+                {
+                    var processArray = Process.GetProcesses();
+                    foreach (var service in servicesToKill)
+                    {
+                        var process = processArray.FirstOrDefault(p => p.ProcessName == service);
+                        process?.Kill();
+                    }
+                    break;
+                }
 
                 var commands = command.Split(" ");
                 var endpointRequest = new G_OrchestrationRequest()

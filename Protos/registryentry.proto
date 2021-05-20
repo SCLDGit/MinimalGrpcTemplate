@@ -3,24 +3,19 @@
 option csharp_namespace = "RegistryEntryService";
 
 package test;
+import "Database.proto";
 
 
 service RegistryEntry
 {
-  rpc ScanRegistryEntry(RegistryEntryRequest) returns (RegistryEntryResponse) { }
+  rpc ScanRegistryEntry(RegistryEntryRequest) returns (stream RegistryEntryResponse) { }
 }
 
 
 message RegistryEntryRequest{
-	string BaselineComplianceValue = 1;
-	string CustomComplianceValue = 2;
-	string UseCustomComplianceValue = 3;
-	string ShouldBeRemoved = 4;
-	string registryKeyRoot = 5;
-	string RegistrySubKey = 6;
-	string RegistryValueName = 7;
-	string RegistryValueKind = 8;
-} 
+	repeated DbRegistryEntry children = 1;
+}
+
 
 message RegistryEntryResponse{
   string response = 1;

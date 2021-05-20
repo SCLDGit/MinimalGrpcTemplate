@@ -23,28 +23,31 @@ namespace DatabaseHandler.Services
 
         public override Task<DbGetRegistryEntryResponse> DbGetRegistryEntry(DbGetRegistryEntryRequest request, ServerCallContext context)
         {
+            Console.WriteLine($"DB DbGetRegistryEntry method was invoked with: {request}");
             var policy = UoW.Query<PolicyVersionItem>().FirstOrDefault(p_o =>
                 p_o.Parent.Name == request.PolicyItemName && p_o.Version == request.PolicyItemVersion);
-            var registryControlCount = 0;
             var children = new RepeatedField<DbRegistryEntry>();
-            foreach (var control in policy.Controls)
+
+            if (policy != null)
             {
-                foreach (var controlPart in control.ControlParts)
+                foreach (var control in policy.Controls)
                 {
-                    if (controlPart is not RegistryEntryItem registryItem) continue;
-                    registryControlCount++;
-                    var dbRegistryEntry = new DbRegistryEntry()
+                    foreach (var controlPart in control.ControlParts)
                     {
-                        BaselineComplianceValue = string.Empty,
-                        CustomComplianceValue = string.Empty,
-                        UseCustomComplianceValue = string.Empty,
-                        ShouldBeRemoved = string.Empty,
-                        RegistryKeyRoot = registryItem.RegistryKeyRoot,
-                        RegistrySubKey = registryItem.RegistrySubKey,
-                        RegistryValueName = registryItem.RegistryValueName,
-                        RegistryValueKind = registryItem.RegistryValueKind
-                    };
-                    children.Add(dbRegistryEntry);
+                        if (controlPart is not RegistryEntryItem registryItem) continue;
+                        var dbRegistryEntry = new DbRegistryEntry()
+                        {
+                            BaselineComplianceValue = string.Empty,
+                            CustomComplianceValue = string.Empty,
+                            UseCustomComplianceValue = string.Empty,
+                            ShouldBeRemoved = string.Empty,
+                            RegistryKeyRoot = registryItem.RegistryKeyRoot,
+                            RegistrySubKey = registryItem.RegistrySubKey,
+                            RegistryValueName = registryItem.RegistryValueName,
+                            RegistryValueKind = registryItem.RegistryValueKind
+                        };
+                        children.Add(dbRegistryEntry);
+                    }
                 }
             }
 
@@ -56,18 +59,23 @@ namespace DatabaseHandler.Services
 
         public override Task<DbGetPlatformResponse> DbGetPlatform(DbGetPlatformRequest request, ServerCallContext context)
         {
+            Console.WriteLine($"DB GetPlatform method was invoked with: {request}");
             var policy = UoW.Query<PolicyVersionItem>().FirstOrDefault(p_o =>
                 p_o.Parent.Name == request.PolicyItemName && p_o.Version == request.PolicyItemVersion);
 
-            var os = (enmSystemTargetType)policy.Parent.SystemTargetType;
-            var result = string.Empty;
-            if (os.HasFlag(enmSystemTargetType.WINDOWS))
+            var result = "Policy not found";
+            if (policy != null)
             {
-                result = "WIN";
-            }
-            else if (os.HasFlag(enmSystemTargetType.LINUX))
-            {
-                result = "LINUX";
+                var os = (enmSystemTargetType)policy.Parent.SystemTargetType;
+                
+                if (os.HasFlag(enmSystemTargetType.WINDOWS))
+                {
+                    result = "WIN";
+                }
+                else if (os.HasFlag(enmSystemTargetType.LINUX))
+                {
+                    result = "LINUX";
+                }
             }
 
             return Task.FromResult(new DbGetPlatformResponse()
@@ -75,5 +83,6 @@ namespace DatabaseHandler.Services
                 Platform = $"{result}"
             });
         }
+
     }
 }

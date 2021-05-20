@@ -42,13 +42,14 @@ namespace PlatformHandler.Services
             switch (platformResponse.Platform.ToUpper())
             {
                 case "WIN":
-                    Console.WriteLine("Sending scanning windows request...");
+                    Console.WriteLine($"Sending scan {platformResponse} request...");
                     G_ScanWinRequest scanwin = new G_ScanWinRequest()
                     {
                         PolicyItemName = request.PolicyItemName,
                         PolicyItemVersion = request.PolicyItenVersion
                     };
                     var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
+
                     Console.WriteLine(scanningWin);
                     break;
                 case "LINUX":
