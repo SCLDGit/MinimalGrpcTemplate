@@ -17,6 +17,7 @@ namespace RegistryEntryHandler
                 Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
             };
 
+            
             server.Start();
 
             Console.WriteLine("Listening...");
