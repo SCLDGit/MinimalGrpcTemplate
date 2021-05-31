@@ -12,6 +12,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.1.3" />
+    <PackageReference Include="SteelCloud.Database" Version="1.1.0" />
+    <PackageReference Include="SteelCloud.Moonshot.Db" Version="1.3.11-alpha" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +38,24 @@
       <Link>Protos/Database.proto</Link>
     </Protobuf>
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SteelCloud.CommonEnumerations">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.CommonEnumerations\Build\Debug\netcoreapp3.1\SteelCloud.CommonEnumerations.dll</HintPath>
+    </Reference>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine\Build\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine.Common">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.Common\Build\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine.JobConfiguration">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.JobConfiguration\bin\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.JobConfiguration.dll</HintPath>
+    </Reference>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine.Utilities">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.Utilities\bin\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.Utilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

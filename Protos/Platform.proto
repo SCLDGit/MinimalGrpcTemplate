@@ -16,7 +16,7 @@ message G_ScanRequest{
 	string endPointAddress = 2;
 	string endPointPlatform = 3;
 	string policyItemName = 4;
-	string policyItenVersion = 5;
+	string policyItemVersion = 5;
 } 
 
 message G_PlatformRequestResponse{

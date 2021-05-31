@@ -36,7 +36,7 @@ namespace PlatformHandler.Services
             var dbGetPlatformRequest = new DbGetPlatformRequest()
             {
                 PolicyItemName = request.PolicyItemName,
-                PolicyItemVersion = request.PolicyItenVersion
+                PolicyItemVersion = request.PolicyItemVersion
             };
             var platformResponse = dbServiceHandler.DbGetPlatform(dbGetPlatformRequest);
             switch (platformResponse.Platform.ToUpper())
@@ -45,8 +45,7 @@ namespace PlatformHandler.Services
                     Console.WriteLine($"Sending scan {platformResponse} request...");
                     G_ScanWinRequest scanwin = new G_ScanWinRequest()
                     {
-                        PolicyItemName = request.PolicyItemName,
-                        PolicyItemVersion = request.PolicyItenVersion
+                        ScanRequest = request
                     };
                     var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
 
@@ -84,6 +83,21 @@ namespace PlatformHandler.Services
             runtimeCollection.RuntimePolicies.Add(runtimePolicy);
             //
             endpoint.RuntimeCollections.Add(runtimeCollection);
+            UoW.CommitChanges();
+        }
+        public void LoadDB1()
+        {
+            var group = UoW.Query<Group>().FirstOrDefault(p_o => p_o.Name == "MyGroup");
+            //
+            var endpoint = new Endpoint(UoW);
+            endpoint.Address = "10.1.5.227";
+            endpoint.Name = "MyEndpoint1";
+            //
+            group.Children.Add(endpoint);
+            //
+            var runTimeCollection = UoW.Query<RuntimeCollection>().FirstOrDefault(p_o => p_o.Oid == 1);
+            endpoint.RuntimeCollections.Add(runTimeCollection);
+            
             UoW.CommitChanges();
         }
     }

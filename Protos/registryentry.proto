@@ -4,6 +4,7 @@ option csharp_namespace = "RegistryEntryService";
 
 package test;
 import "Database.proto";
+import "Platform.proto";
 
 
 service RegistryEntry
@@ -13,7 +14,7 @@ service RegistryEntry
 
 
 message RegistryEntryRequest{
-	repeated DbRegistryEntry children = 1;
+	G_ScanRequest scanRequest = 1;
 }
 
 

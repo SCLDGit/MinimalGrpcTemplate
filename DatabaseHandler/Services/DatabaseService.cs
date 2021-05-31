@@ -23,38 +23,39 @@ namespace DatabaseHandler.Services
 
         public override Task<DbGetRegistryEntryResponse> DbGetRegistryEntry(DbGetRegistryEntryRequest request, ServerCallContext context)
         {
-            Console.WriteLine($"DB DbGetRegistryEntry method was invoked with: {request}");
-            var policy = UoW.Query<PolicyVersionItem>().FirstOrDefault(p_o =>
-                p_o.Parent.Name == request.PolicyItemName && p_o.Version == request.PolicyItemVersion);
-            var children = new RepeatedField<DbRegistryEntry>();
+            //Console.WriteLine($"DB DbGetRegistryEntry method was invoked with: {request}");
+            //var policy = UoW.Query<PolicyVersionItem>().FirstOrDefault(p_o =>
+            //    p_o.Parent.Name == request.PolicyItemName && p_o.Version == request.PolicyItemVersion);
+            //var children = new RepeatedField<DbRegistryEntry>();
 
-            if (policy != null)
-            {
-                foreach (var control in policy.Controls)
-                {
-                    foreach (var controlPart in control.ControlParts)
-                    {
-                        if (controlPart is not RegistryEntryItem registryItem) continue;
-                        var dbRegistryEntry = new DbRegistryEntry()
-                        {
-                            BaselineComplianceValue = string.Empty,
-                            CustomComplianceValue = string.Empty,
-                            UseCustomComplianceValue = string.Empty,
-                            ShouldBeRemoved = string.Empty,
-                            RegistryKeyRoot = registryItem.RegistryKeyRoot,
-                            RegistrySubKey = registryItem.RegistrySubKey,
-                            RegistryValueName = registryItem.RegistryValueName,
-                            RegistryValueKind = registryItem.RegistryValueKind
-                        };
-                        children.Add(dbRegistryEntry);
-                    }
-                }
-            }
+            //if (policy != null)
+            //{
+            //    foreach (var control in policy.Controls)
+            //    {
+            //        foreach (var controlPart in control.ControlParts)
+            //        {
+            //            if (controlPart is not RegistryEntryItem registryItem) continue;
+            //            var dbRegistryEntry = new DbRegistryEntry()
+            //            {
+            //                BaselineComplianceValue = string.Empty,
+            //                CustomComplianceValue = string.Empty,
+            //                UseCustomComplianceValue = string.Empty,
+            //                ShouldBeRemoved = string.Empty,
+            //                RegistryKeyRoot = registryItem.RegistryKeyRoot,
+            //                RegistrySubKey = registryItem.RegistrySubKey,
+            //                RegistryValueName = registryItem.RegistryValueName,
+            //                RegistryValueKind = registryItem.RegistryValueKind
+            //            };
+            //            children.Add(dbRegistryEntry);
+            //        }
+            //    }
+            //}
 
-            return Task.FromResult(new DbGetRegistryEntryResponse()
-            {
-                Children = { children}
-            });
+            //return Task.FromResult(new DbGetRegistryEntryResponse()
+            //{
+            //    Children = { children}
+            //});
+            return null;
         }
 
         public override Task<DbGetPlatformResponse> DbGetPlatform(DbGetPlatformRequest request, ServerCallContext context)

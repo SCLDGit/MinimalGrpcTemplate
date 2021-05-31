@@ -29,17 +29,17 @@ namespace ScanWinHandler.Services
 
         public override async Task<G_ScanWinResponse> ScanWinProcess(G_ScanWinRequest request, ServerCallContext context)
         {
-            Console.WriteLine($"'ScanWinProcess' was invoked");
-            var dbGetRegistryEntryRequest = new DbGetRegistryEntryRequest()
-            {
-                PolicyItemName = request.PolicyItemName,
-                PolicyItemVersion = request.PolicyItemVersion
-            };
-            var dbGetRegistryEntry = DbServiceHandler.DbGetRegistryEntry(dbGetRegistryEntryRequest);
+            //Console.WriteLine($"'ScanWinProcess' was invoked");
+            //var dbGetRegistryEntryRequest = new DbGetRegistryEntryRequest()
+            //{
+            //    PolicyItemName = request.PolicyItemName,
+            //    PolicyItemVersion = request.PolicyItemVersion
+            //};
+            //var dbGetRegistryEntry = DbServiceHandler.DbGetRegistryEntry(dbGetRegistryEntryRequest);
 
             var registryEntryRequest = new RegistryEntryRequest()
             {
-                Children = { dbGetRegistryEntry.Children}
+                ScanRequest = request.ScanRequest
             };
 
             var totalControls = 0;
@@ -58,12 +58,11 @@ namespace ScanWinHandler.Services
                 Console.WriteLine(e.InnerException.Message);
                 throw;
             }
-            
+
             return await Task.FromResult(new G_ScanWinResponse()
             {
                 Response = $"{totalControls} registry controls scanned."
             });
-
         }
     }
 }

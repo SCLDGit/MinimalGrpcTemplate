@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Grpc.Core;
 using RegistryEntryService;
 
@@ -8,6 +9,16 @@ namespace RegistryEntryHandler
     {
         static void Main(string[] args)
         {
+
+            var dbLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "fnddata", "debug");
+
+            //Directory.CreateDirectory(dbLocation);
+
+            var dbConnectionHelper = new SteelCloud.Database.SqliteConnectionHelper(dbLocation, "fnddb.db");
+
+            dbConnectionHelper.EstablishDatabaseConnection();
+
             Console.WriteLine("Starting registry entry server...");
             const int port = 30056;
 

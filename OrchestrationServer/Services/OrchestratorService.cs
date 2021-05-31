@@ -86,9 +86,10 @@ namespace OrchestrationServer.Services
                 case G_OrchestrationRequest.RequestTypeOneofCase.ScanRequest:
                     try
                     {
-                        Console.WriteLine("Sending platform request...");
+                        Console.WriteLine($"Sending Scan request...{p_request.OriginId}");
                         var platform = PlatformHandler.GetPlatform(p_request.ScanRequest);
                         Console.WriteLine($"Platform: {platform}");
+                        Console.WriteLine($"Scan request {p_request.OriginId} finished successfully");
                     }
                     catch (RpcException exception)
                     {
