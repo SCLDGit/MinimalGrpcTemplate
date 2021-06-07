@@ -32,13 +32,15 @@ namespace ScanWinHandler.Services
             Console.WriteLine($"'ScanWinProcess' was invoked");
             var dbGetRegistryEntryRequest = new DbGetRegistryEntryRequest()
             {
-                PolicyItemName = request.PolicyItemName,
-                PolicyItemVersion = request.PolicyItemVersion
+                ScanRequest = request.ScanRequest
             };
             var dbGetRegistryEntry = DbServiceHandler.DbGetRegistryEntry(dbGetRegistryEntryRequest);
 
             var registryEntryRequest = new RegistryEntryRequest()
             {
+                EndpointAddress = request.ScanRequest.EndPointAddress,
+                UserName = dbGetRegistryEntry.UserName,
+                UserPassword = dbGetRegistryEntry.UserPassword,
                 Children = { dbGetRegistryEntry.Children}
             };
 

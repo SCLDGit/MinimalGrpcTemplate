@@ -12,6 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.1.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,15 @@
       <Link>Protos/Database.proto</Link>
     </Protobuf>
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine.JobConfiguration">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.JobConfiguration\bin\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.JobConfiguration.dll</HintPath>
+    </Reference>
+    <Reference Include="SteelCloud.Windows.PowerShellEngine.Utilities">
+      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.Utilities\bin\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.Utilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -132,7 +132,7 @@ namespace Requester
                 EndPointAddress = p_commands[endpointAddressIndex],
                 EndPointPlatform = endpointPlatformName,
                 PolicyItemName = policyVersionItemName,
-                PolicyItenVersion = policyVersionItemVersion
+                PolicyItemVersion = policyVersionItemVersion
             };
             return RequestScan;
         }

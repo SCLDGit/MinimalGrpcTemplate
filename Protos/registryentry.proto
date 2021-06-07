@@ -13,7 +13,10 @@ service RegistryEntry
 
 
 message RegistryEntryRequest{
-	repeated DbRegistryEntry children = 1;
+	string endpointAddress = 1;
+	string userName = 2;
+	string userPassword = 3;
+	repeated DbRegistryEntry children = 4;
 }
 
 

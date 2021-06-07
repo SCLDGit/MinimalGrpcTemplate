@@ -36,7 +36,7 @@ namespace PlatformHandler.Services
             var dbGetPlatformRequest = new DbGetPlatformRequest()
             {
                 PolicyItemName = request.PolicyItemName,
-                PolicyItemVersion = request.PolicyItenVersion
+                PolicyItemVersion = request.PolicyItemVersion
             };
             var platformResponse = dbServiceHandler.DbGetPlatform(dbGetPlatformRequest);
             switch (platformResponse.Platform.ToUpper())
@@ -45,8 +45,7 @@ namespace PlatformHandler.Services
                     Console.WriteLine($"Sending scan {platformResponse} request...");
                     G_ScanWinRequest scanwin = new G_ScanWinRequest()
                     {
-                        PolicyItemName = request.PolicyItemName,
-                        PolicyItemVersion = request.PolicyItenVersion
+                        ScanRequest = request
                     };
                     var scanningWin = ScanWinHandler.ScanWinProcess(scanwin);
 

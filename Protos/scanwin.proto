@@ -12,8 +12,7 @@ service ScanWin
 
 
 message G_ScanWinRequest{
-	string policyItemName = 1;
-	string policyItemVersion = 2;
+	G_ScanRequest scanRequest = 1;
 } 
 
 message G_ScanWinResponse{

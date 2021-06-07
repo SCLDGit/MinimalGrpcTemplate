@@ -23,6 +23,9 @@
     <Protobuf Include="../Protos/Database.proto" GrpcServices="Server" ProtoRoot="../Protos/">
       <Link>Protos/Database.proto</Link>
     </Protobuf>
+    <Protobuf Include="../Protos/Platform.proto" GrpcServices="Server" ProtoRoot="../Protos/">
+      <Link>Protos/Platform.proto</Link>
+    </Protobuf>
 
   </ItemGroup>
 

@@ -3,41 +3,52 @@
 option csharp_namespace = "DatabaseService";
 
 package test;
-
+import "Platform.proto";
+import "SteelCloud.Moonshot.Db";
 
 service DbService
 {
   rpc DbGetRegistryEntry(DbGetRegistryEntryRequest) returns (DbGetRegistryEntryResponse) { }
   rpc DbGetPlatform(DbGetPlatformRequest) returns (DbGetPlatformResponse) { }
+  rpc DbGetEndpointInfo(DbGetEndpointInfoRequest) returns (DbGetEndpointInfoResponse) { }
 }
 
 
 message DbGetRegistryEntryRequest{
-	string PolicyItemName = 1;
-	string PolicyItemVersion = 2;
+	G_ScanRequest scanRequest = 1;
 } 
 
 message DbGetRegistryEntryResponse{
-	repeated DbRegistryEntry children = 1;
+	string userName = 1;
+	string userPassword = 2;
+	repeated DbRegistryEntry children = 3;
 }
 
 message DbRegistryEntry{
-	string BaselineComplianceValue = 1;
-	string CustomComplianceValue = 2;
-	string UseCustomComplianceValue = 3;
-	string ShouldBeRemoved = 4;
-	string registryKeyRoot = 5;
-	string RegistrySubKey = 6;
-	string RegistryValueName = 7;
-	string RegistryValueKind = 8;
+	int32 oid = 1;
+	string complianceValue = 2;
+	bool shouldBeRemoved = 3;
+	string registryKeyRoot = 4;
+	string registrySubKey = 5;
+	string registryValueName = 6;
+	string registryValueKind = 7;
 }
 
 message DbGetPlatformRequest{
-	string PolicyItemName = 1;
-	string PolicyItemVersion = 2;
+	string policyItemName = 1;
+	string policyItemVersion = 2;
 } 
 
 message DbGetPlatformResponse{
-	string Platform = 1;
-	
+	string platform = 1;
 }
+
+message DbGetEndpointInfoRequest{
+	string endpointAddress = 1;
+} 
+
+message DbGetEndpointInfoResponse{
+	string userName = 1;
+	string userPassword = 2;
+}
+
