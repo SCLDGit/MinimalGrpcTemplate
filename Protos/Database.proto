@@ -4,7 +4,7 @@ option csharp_namespace = "DatabaseService";
 
 package test;
 import "Platform.proto";
-import "SteelCloud.Moonshot.Db";
+import "google/protobuf/timestamp.proto";
 
 service DbService
 {
@@ -21,17 +21,54 @@ message DbGetRegistryEntryRequest{
 message DbGetRegistryEntryResponse{
 	string userName = 1;
 	string userPassword = 2;
-	repeated DbRegistryEntry children = 3;
+	repeated MRegistryEntry children = 3;
 }
 
-message DbRegistryEntry{
-	int32 oid = 1;
-	string complianceValue = 2;
-	bool shouldBeRemoved = 3;
-	string registryKeyRoot = 4;
-	string registrySubKey = 5;
-	string registryValueName = 6;
-	string registryValueKind = 7;
+message MRegistryEntry{
+	MStigControlItem mStigControlItem = 1;
+	repeated MRegistryEntryItem mRegistryEntryItems = 2;
+}
+
+message MStigControlItem{
+	string groupId = 1;
+	string groupTitle = 2;
+	string ruleId = 3;
+	string ruleTitle = 4;
+	string ruleSeverity = 5;
+	string ruleWeight = 6;
+	string ruleVersion = 7;
+	string vulnerabilityDiscussion = 8;
+	string checkContent = 9;
+	string fixId = 10;
+	string fixText = 11;
+	string cci = 12;
+	MIPolicyControlType mIPolicyControlType = 13;
+}
+
+message MIPolicyControlType{
+	string comments = 1;
+	bool isReadOnly = 2;
+	bool isDocumentation = 3;
+}
+
+message MIControlPartType{
+	string baselineComplianceValue = 1;
+	string customComplianceValue = 2;
+	bool useCustomComplianceValue = 3;
+	bool shouldBeRemoved = 4;
+	string comments = 5;
+	bool acceptedNonCompliance = 6;
+	google.protobuf.Timestamp acceptedNonComplianceExpirationDate = 7;
+	bool lockRemediation = 8;
+	bool applyForAllUsers = 9;
+}
+
+message MRegistryEntryItem{
+	string registryKeyRoot = 1;
+	string registrySubKey = 2;
+	string registryValueName = 3;
+	string registryValueKind = 4;
+	MIControlPartType mIControlPartType = 5; 
 }
 
 message DbGetPlatformRequest{

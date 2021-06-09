@@ -16,7 +16,7 @@ message RegistryEntryRequest{
 	string endpointAddress = 1;
 	string userName = 2;
 	string userPassword = 3;
-	repeated DbRegistryEntry children = 4;
+	repeated MRegistryEntry children = 4;
 }
 
 
