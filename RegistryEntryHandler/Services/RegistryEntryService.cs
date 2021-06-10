@@ -9,7 +9,6 @@ using SteelCloud.Windows.PowerShellEngine.JobConfiguration;
 using SteelCloud.Windows.PowerShellEngine.Utilities;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using SteelCloud.Windows.PowerShellEngine.Common;
 using SteelCloud.CommonEnumerations;
 using DatabaseService;
 using System.Diagnostics;
@@ -37,12 +36,16 @@ namespace RegistryEntryHandler.Services
                 {
                     foreach(var registryEntryItem in registryEntry.MRegistryEntryItems)
                     {
-                        Console.WriteLine($"Scanning {registryEntryItem.RegistryValueName}");
+                        Console.WriteLine($"Scanning {registryEntry.MStigControlItem.GroupId}");
                         var command = GenerateRegistryEntryPowerShellCommand(registryEntryItem, enmProcesType.SCAN);
                         command.RunCommand(PowerShellRunSpace);
                         var currentValue = GetCurrentValue(command);
                         var complianceValue = registryEntryItem.MIControlPartType.UseCustomComplianceValue ? registryEntryItem.MIControlPartType.CustomComplianceValue : registryEntryItem.MIControlPartType.BaselineComplianceValue;
-                        var passFailResult = GetPassFailResult(currentValue, complianceValue);
+                        var passFailResult = true;
+                        if (currentValue != complianceValue)
+                        {
+                            passFailResult = GetPassFailResult(currentValue, complianceValue);
+                        }
                         if (passFailResult)
                         {
                             passed++;
@@ -54,13 +57,14 @@ namespace RegistryEntryHandler.Services
 
                         var registryEntryResponse = new RegistryEntryResponse()
                         {
-                            Response = $"{registryEntryItem.RegistryValueName} successfully scanned."
+                            Response = $"{registryEntry.MStigControlItem.GroupId} successfully scanned.  Result: {(passFailResult ? "PASSED" : "FAILED")}"
                         };
 
                         await responseStream.WriteAsync(registryEntryResponse);
                         //System.Threading.Thread.Sleep(200);
                     }
                 }
+                Console.WriteLine($"Total PASS: {passed} FAILED: {failed}");
             }
             
         }

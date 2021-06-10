@@ -42,9 +42,6 @@
     <Reference Include="SteelCloud.CommonEnumerations">
       <HintPath>..\..\SteelCloudUtilities\SteelCloud.CommonEnumerations\Build\Debug\netcoreapp3.1\SteelCloud.CommonEnumerations.dll</HintPath>
     </Reference>
-    <Reference Include="SteelCloud.Windows.PowerShellEngine.Common">
-      <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.Common\Build\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.Common.dll</HintPath>
-    </Reference>
     <Reference Include="SteelCloud.Windows.PowerShellEngine.JobConfiguration">
       <HintPath>..\..\SteelCloudUtilities\SteelCloud.Windows.PowerShellEngine.JobConfiguration\bin\Debug\netcoreapp3.1\SteelCloud.Windows.PowerShellEngine.JobConfiguration.dll</HintPath>
     </Reference>
