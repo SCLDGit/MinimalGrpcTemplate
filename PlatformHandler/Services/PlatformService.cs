@@ -69,6 +69,8 @@ namespace PlatformHandler.Services
             var endpoint = new Endpoint(UoW);
             endpoint.Address = "10.1.1.1";
             endpoint.Name = "MyEndpoint";
+            //endpoint.UserPassword = "SC-$ecure-20147-Dev74Test";
+            //endpoint.UserName = "demouser";
             //
             group.Children.Add(endpoint);
             //
