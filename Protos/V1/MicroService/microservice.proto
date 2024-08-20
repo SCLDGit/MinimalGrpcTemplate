@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package minimalGrpcTemplate.api.protos.v1.microservice;
+
+option csharp_namespace="MinimalGrpcTemplate.Api.Protos.V1.Microservice";
+
+service Microservice{
+  rpc ProcessAddNumbers (G_AddNumbersServiceRequest) returns (G_AddNumbersServiceResponse);
+}
+
+message G_AddNumbersServiceRequest{
+  repeated int32 numbers = 1;
+}
+
+message G_AddNumbersServiceResponse{
+  int32 result = 1;
+}

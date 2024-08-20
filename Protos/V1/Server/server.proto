@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package minimalGrpcTemplate.api.protos.v1.server;
+
+option csharp_namespace="MinimalGrpcTemplate.Api.Protos.V1.Server";
+
+service Server{
+  rpc AddNumbers (G_AddNumbersRequest) returns (G_AddNumbersResponse);
+}
+
+message G_AddNumbersRequest{
+  repeated int32 numbers = 1;
+}
+
+message G_AddNumbersResponse{
+  int32 result = 1;
+}

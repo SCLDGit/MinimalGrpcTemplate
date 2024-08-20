@@ -1,0 +1,18 @@
+﻿services:
+  server:
+    image: server
+    build:
+      context: .
+      dockerfile: Server/Dockerfile
+
+  client:
+    image: client
+    build:
+      context: .
+      dockerfile: Client/Dockerfile
+
+  microservice:
+    image: microservice
+    build:
+      context: .
+      dockerfile: MicroService/Dockerfile
