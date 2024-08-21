@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 using MinimalGrpcTemplate.Server.Global.IO.Directories;
 using MinimalGrpcTemplate.Server.Global.IO.Files;
@@ -14,6 +15,7 @@ using MinimalGrpcTemplate.Server.Services.GrpcServiceImplementations;
 using MinimalGrpcTemplate.Server.Services.MicroserviceInteraction;
 
 using Serilog;
+using Serilog.Settings;
 
 namespace MinimalGrpcTemplate.Server;
 
@@ -45,6 +47,8 @@ internal static class Program
 
         MapGrpcEndpointServices(app);
 
+        Log.Information("Starting server...");
+        
         await app.RunAsync();
         
         return 0;
@@ -52,21 +56,17 @@ internal static class Program
     
     private static void ConfigureLogging(WebApplicationBuilder p_appBuilder)
     {
-        var configuredLogLevel = LogLevelUtilities.GetLogLevel(p_appBuilder.Configuration["Logging:LogLevel:Default"]);
-
         p_appBuilder.Logging.ClearProviders();
-            
-        Log.Logger = new LoggerConfiguration()
-                     .MinimumLevel
-                     .Is(LogLevelUtilities.GetSerilogLogLevel(configuredLogLevel))
-                     .WriteTo.Console()
-                     .WriteTo.File(ApplicationFiles.LogsFilePath,
-                                   rollingInterval: RollingInterval.Day,
-                                   retainedFileCountLimit: 31,
-                                   fileSizeLimitBytes: 1024 * 1024 * 10,
-                                   rollOnFileSizeLimit: true)
-                     .WriteTo.Debug()
-                     .CreateLogger();
+
+        Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(p_appBuilder.Configuration)
+                                              .WriteTo.Console()
+                                              .WriteTo.File(ApplicationFiles.LogsFilePath,
+                                                            rollingInterval: RollingInterval.Day,
+                                                            retainedFileCountLimit: 31,
+                                                            fileSizeLimitBytes: 1024 * 1024 * 10,
+                                                            rollOnFileSizeLimit: true)
+                                              .WriteTo.Debug()
+                                              .CreateLogger();
             
         p_appBuilder.Logging.AddSerilog(Log.Logger);
     }

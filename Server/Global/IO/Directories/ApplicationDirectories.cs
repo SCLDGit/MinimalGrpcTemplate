@@ -5,7 +5,7 @@ internal static class ApplicationDirectories
     #if DEBUG
     private static string ServerDataDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                     "MinimalGrpcTemplate", "Client", "Debug");
+                     "MinimalGrpcTemplate", "Server", "Debug");
     
     private static string MicroserviceDataDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
@@ -13,7 +13,7 @@ internal static class ApplicationDirectories
     #else
     private static string ServerDataDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                     "MinimalGrpcTemplate", "Client");
+                     "MinimalGrpcTemplate", "Server");
     
     private static string MicroserviceDataDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
