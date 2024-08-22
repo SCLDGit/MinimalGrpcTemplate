@@ -2,18 +2,25 @@
 
 using Grpc.Net.Client;
 
+using Microsoft.Extensions.Logging;
+
 using MinimalGrpcTemplate.Server.Global.IO.Files;
+
+using Serilog;
 
 namespace MinimalGrpcTemplate.Server.Services.MicroserviceInteraction;
 
 internal class MicroserviceConnectionInfoService : IConnectionInfoService
 {
-    private readonly SocketConnectionFactoryService m_socketService;
+    private readonly SocketConnectionFactoryService             m_socketService;
+    private readonly ILogger<MicroserviceConnectionInfoService> m_logger;
     
-    public MicroserviceConnectionInfoService(SocketConnectionFactoryService p_socketService)
+    public MicroserviceConnectionInfoService(ILogger<MicroserviceConnectionInfoService> p_logger,
+                                             SocketConnectionFactoryService             p_socketService)
     {
         m_socketService = p_socketService;
-        
+        m_logger   = p_logger;
+
         Channel = CreateChannel();
     }
     
@@ -21,6 +28,8 @@ internal class MicroserviceConnectionInfoService : IConnectionInfoService
     
     private GrpcChannel CreateChannel()
     {
+        m_logger.LogInformation("Creating channel for microservice connection");
+        
         var udsEndPoint       = new UnixDomainSocketEndPoint(ApplicationFiles.SocketFile);
         
         m_socketService.SetEndpoint(udsEndPoint);

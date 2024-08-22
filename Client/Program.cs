@@ -5,41 +5,48 @@ using MinimalGrpcTemplate.Client.Services.ServerInteraction;
 
 var input = string.Empty;
 
-while ( string.IsNullOrWhiteSpace(input) )
+while ( !input.Equals("q", StringComparison.InvariantCultureIgnoreCase) )
 {
-    Console.Clear();
-    Console.WriteLine("Enter numbers separated by spaces: ");
-    input = Console.ReadLine();
-}
-
-var inputs = input.Split(' ');
-
-var numbers = new List<int>();
-
-foreach ( var number in inputs )
-{
-    if ( int.TryParse(number, out var parsedNumber) )
+    while ( string.IsNullOrWhiteSpace(input) )
     {
-        numbers.Add(parsedNumber);
+        Console.Clear();
+        Console.WriteLine("Enter numbers separated by spaces: ");
+        input = Console.ReadLine();
     }
-    else
+
+    var inputs = input.Split(' ');
+
+    var numbers = new List<int>();
+
+    foreach ( var number in inputs )
     {
-        Console.WriteLine($"'{number}' is not a valid number.");
-        return 1;
+        if ( int.TryParse(number, out var parsedNumber) )
+        {
+            numbers.Add(parsedNumber);
+        }
+        else
+        {
+            Console.WriteLine($"'{number}' is not a valid number.");
+            return 1;
+        }
     }
+
+    var serverConnectionInfo = new ServerConnectionInfo();
+
+    serverConnectionInfo.SetUnauthenticatedChannel("localhost", 5000);
+
+    var client = new Server.ServerClient(serverConnectionInfo.Channel);
+
+    var response = client.AddNumbers(new G_AddNumbersRequest
+                                     {
+                                         Numbers = { numbers }
+                                     });
+
+    Console.WriteLine($"The sum of the numbers is: {response.Result}");
+
+    Console.ReadKey(true);
+    
+    input = string.Empty;
 }
-
-var serverConnectionInfoService = new ServerConnectionInfoService();
-
-serverConnectionInfoService.SetUnauthenticatedChannel("localhost", 5000);
-
-var client = new Server.ServerClient(serverConnectionInfoService.Channel);
-
-var response = client.AddNumbers(new G_AddNumbersRequest
-                                 {
-                                     Numbers = { numbers }
-                                 });
-
-Console.WriteLine($"The sum of the numbers is: {response.Result}");
 
 return 0;

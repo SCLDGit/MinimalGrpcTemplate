@@ -6,7 +6,7 @@ using Grpc.Net.Client.Configuration;
 
 namespace MinimalGrpcTemplate.Client.Services.ServerInteraction;
 
-internal class ServerConnectionInfoService
+internal class ServerConnectionInfo
 {
     internal  GrpcChannel Channel           { get; private set; } = GrpcChannel.ForAddress("https://localhost:5001");
     private string      ConnectionAddress { get; set; }         = string.Empty;

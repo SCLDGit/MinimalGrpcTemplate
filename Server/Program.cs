@@ -60,7 +60,7 @@ internal static class Program
 
         Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(p_appBuilder.Configuration)
                                               .WriteTo.Console()
-                                              .WriteTo.File(ApplicationFiles.LogsFilePath,
+                                              .WriteTo.File(ApplicationFiles.LogFile,
                                                             rollingInterval: RollingInterval.Day,
                                                             retainedFileCountLimit: 31,
                                                             fileSizeLimitBytes: 1024 * 1024 * 10,

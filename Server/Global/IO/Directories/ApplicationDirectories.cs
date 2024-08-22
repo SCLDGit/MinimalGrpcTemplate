@@ -20,7 +20,7 @@ internal static class ApplicationDirectories
                      "MinimalGrpcTemplate", "Microservice");
     #endif
 
-    internal static string LogsDataPath    => Path.Combine(ServerDataDirectory, "Logs");
+    internal static string LogsDirectory    => Path.Combine(ServerDataDirectory, "Logs");
     internal static string SocketDirectory => Path.Combine(MicroserviceDataDirectory, "Sockets");
 
     internal static void CreateRequiredDirectories()

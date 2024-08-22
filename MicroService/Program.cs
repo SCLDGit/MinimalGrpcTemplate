@@ -65,21 +65,17 @@ internal static class Program
     
     private static void ConfigureLogging(WebApplicationBuilder p_appBuilder)
     {
-        var configuredLogLevel = LogLevelUtilities.GetLogLevel(p_appBuilder.Configuration["Logging:LogLevel:Default"]);
-
         p_appBuilder.Logging.ClearProviders();
             
-        Log.Logger = new LoggerConfiguration()
-                     .MinimumLevel
-                     .Is(LogLevelUtilities.GetSerilogLogLevel(configuredLogLevel))
-                     .WriteTo.Console()
-                     .WriteTo.File(ApplicationFiles.LogFile,
-                                   rollingInterval: RollingInterval.Day,
-                                   retainedFileCountLimit: 31,
-                                   fileSizeLimitBytes: 1024 * 1024 * 10,
-                                   rollOnFileSizeLimit: true)
-                     .WriteTo.Debug()
-                     .CreateLogger();
+        Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(p_appBuilder.Configuration)
+                                              .WriteTo.Console()
+                                              .WriteTo.File(ApplicationFiles.LogFile,
+                                                            rollingInterval: RollingInterval.Day,
+                                                            retainedFileCountLimit: 31,
+                                                            fileSizeLimitBytes: 1024 * 1024 * 10,
+                                                            rollOnFileSizeLimit: true)
+                                              .WriteTo.Debug()
+                                              .CreateLogger();
             
         p_appBuilder.Logging.AddSerilog(Log.Logger);
     }
