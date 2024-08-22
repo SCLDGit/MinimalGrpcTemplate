@@ -30,7 +30,7 @@ while ( !input.Equals("q", StringComparison.InvariantCultureIgnoreCase) )
             return 1;
         }
     }
-
+    
     var serverConnectionInfo = new ServerConnectionInfo();
 
     serverConnectionInfo.SetUnauthenticatedChannel("localhost", 5000);
