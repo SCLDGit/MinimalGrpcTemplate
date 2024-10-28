@@ -8,7 +8,7 @@ namespace MinimalGrpcTemplate.Client.Services.ServerInteraction;
 
 internal class ServerConnectionInfo
 {
-    internal  GrpcChannel Channel           { get; private set; } = GrpcChannel.ForAddress("https://localhost:5001");
+    internal  GrpcChannel Channel           { get; private set; } = GrpcChannel.ForAddress("https://localhost:5005");
     private string      ConnectionAddress { get; set; }         = string.Empty;
 
     public void SetUnauthenticatedChannel(string p_target, ushort p_port)

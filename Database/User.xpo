@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="193e0019-c804-41ba-8e8c-49664314a5e4" namespace="Database.User" dataBaseShemaInfo="H4sIAAAAAAAEAMWU32/aMBDH3yftf4h4JnECgUBlUrXQVdW2qipl2uslvoC1xEG2A/S/n/ODlFC6aU97y33ue/J9z+fQ60OWWjuUiudi1vMct3cdfv5Eb0HhUucS1vggktwyKqGuDorNehutt1eE7Pd7Zz90crkmA9f1yM/v35bxBjPotWL+d7HNhdIgYuyZUy2LvkCUoiqPrOIjOQFH9AgZhiuFkpK3uJXciZKFWhZISRO0yQVXJVhtGWgME0iVEXVhq70vOHtgocsGCURDsJNxEtg+TDwb4uHIDmA8RXfKRhN3REkjbovneVpkQnW6/xCbROmhTlbOhAkpOYEd8Z8s/qvNU6vxGFnC3MBmUza2/cCYjlgc2WPwvMFkwob+yHtn1ZSTS7Yu0ebCWtLEbxJabh6yJ5nHFbRIjX/UaxoucHd32EpUylmABmc38B2vbzXpWRk5vuP2rXmR6kLiTGChJaR966mIUh5/xdeX/BeKWWTseMHIZ4Hroj8FSo5HVOfNU1AKVXkBz0U7XXrDTGuY8EPTV42WRdJBz5jlOzwX1vRcOzevLVyJeANijczMrIzr0VzqgZrJbFFq/p97+6ANeo8CpVmveZ5lKLRqdvQd7ogXqPjafH7hZhXOKrq5qmyBKWq8USqPOWhzZceaC4mq4LFI03LNbnEDO55Ls0UJmP0wD+w8Y/5/5OwHGP4GgV5G4SkFAAA=" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" createdInVersion="24.1.4.0" generateJsonSerializationContractResolver="false" generateServiceCollectionExtensions="false" lastModifiedInVersion="24.1.4.0" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <classes>
+    <dataBaseObjectModelHasClasses Id="8e1739f6-8f4c-4c02-bd50-39235acc4f1f">
+      <xpObject Id="0d2fab3a-f6f7-4a81-ac35-7a69e09d5805" name="User" baseClass="XPObject" userFileName="User" designerFileName="User.Designer" className="User" virtualName="User">
+        <fields>
+          <generalXpObjectHasFields Id="f057ae80-57d7-4355-a833-90513d8b8aa4">
+            <field Id="c6edfd07-d9d6-473a-bdcb-6a11288d3451" name="Username" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>

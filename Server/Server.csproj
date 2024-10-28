@@ -38,7 +38,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="DevExpress.Xpo" Version="24.1.6" />
       <PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
+      <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
       <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
       <PackageReference Include="Serilog" Version="4.0.1" />
@@ -56,6 +58,10 @@
       <None Update="appsettings.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Database\Database.csproj" />
     </ItemGroup>
 
 </Project>

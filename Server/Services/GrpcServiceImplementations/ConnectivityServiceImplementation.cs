@@ -3,6 +3,7 @@
 using Microsoft.Extensions.Logging;
 
 using MinimalGrpcTemplate.Api.Protos.V1.Connectivity;
+using MinimalGrpcTemplate.Server.Services.UserManagement;
 
 namespace MinimalGrpcTemplate.Server.Services.GrpcServiceImplementations;
 
@@ -11,7 +12,7 @@ internal class ConnectivityServiceImplementation(ILogger<ConnectivityServiceImpl
     public override async Task<G_ConnectionCheckResponse> CheckServerConnection(G_ConnectionCheckRequest p_request, ServerCallContext p_context)
     {
         c_logger.LogInformation("Server connection check requested by client");
-        
+
         return await Task.FromResult(new G_ConnectionCheckResponse());
     }
 }

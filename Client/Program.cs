@@ -33,16 +33,27 @@ while ( !input.Equals("q", StringComparison.InvariantCultureIgnoreCase) )
     
     var serverConnectionInfo = new ServerConnectionInfo();
 
-    serverConnectionInfo.SetUnauthenticatedChannel("localhost", 5000);
+    serverConnectionInfo.SetUnauthenticatedChannel("localhost", 5005);
 
     var client = new Server.ServerClient(serverConnectionInfo.Channel);
 
-    var response = client.AddNumbers(new G_AddNumbersRequest
-                                     {
-                                         Numbers = { numbers }
-                                     });
+    if ( numbers.Contains(2) )
+    {
+        var response = client.AddNumbers(new G_AddNumbersRequest
+                                         {
+                                             Numbers = { numbers }
+                                         });
+    }
+    else
+    {
+        var response = client.AddNumbers2(new G_AddNumbersRequest
+                                         {
+                                             Numbers = { numbers }
+                                         });
+    }
+    
 
-    Console.WriteLine($"The sum of the numbers is: {response.Result}");
+   // Console.WriteLine($"The sum of the numbers is: {response.Result}");
 
     Console.ReadKey(true);
     

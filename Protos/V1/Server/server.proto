@@ -6,6 +6,7 @@ option csharp_namespace="MinimalGrpcTemplate.Api.Protos.V1.Server";
 
 service Server{
   rpc AddNumbers (G_AddNumbersRequest) returns (G_AddNumbersResponse);
+  rpc AddNumbers2 (G_AddNumbersRequest) returns (G_AddNumbersResponse);
 }
 
 message G_AddNumbersRequest{
